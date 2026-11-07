@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1118">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>JophyOrtho 3D — CAO orthoprothétique</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <div class="brand"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0b1118"/><path d="M11 5h10l-1.5 9 1.2 7c.3 1.8-.8 3.5-2.6 3.8L16 26l-2.1-1.2c-1.8-.3-2.9-2-2.6-3.8l1.2-7z" fill="#3fb6ff"/></svg><span>Jophy<b>Ortho</b> 3D</span></div>
+    <div id="provBadge" class="prov" role="status" aria-live="polite"></div>
+    <div id="ctxLabel" class="ctx"></div>
+    <div class="tools">
+      <button id="btnUndo" class="ib" title="Annuler (Ctrl+Z)" aria-label="Annuler">↶</button>
+      <button id="btnRedo" class="ib" title="Rétablir (Ctrl+Y)" aria-label="Rétablir">↷</button>
+      <button id="btnHist" class="ib" title="Historique des opérations" aria-label="Historique">☰</button>
+      <button id="btnSave" class="ib" title="Enregistrer dans ce navigateur" aria-label="Enregistrer">💾</button>
+      <button id="btnHome" class="ib" title="Accueil / autres dossiers" aria-label="Accueil">⌂</button>
+      <button id="btnHelp" class="ib" title="Limites et aide" aria-label="Aide">?</button>
+    </div>
+  </header>
+  <main id="main">
+    <nav id="steps" aria-label="Étapes"></nav>
+    <section id="panel" aria-live="polite"><div id="panelBody"></div></section>
+    <section id="stage">
+      <canvas id="gl" aria-label="Vue 3D"></canvas>
+      <div id="vbar">
+        <div class="grp" id="vViews"></div>
+        <div class="grp">
+          <button data-act="max" title="Vue 3D plein écran" id="bMax" aria-label="Plein écran 3D">⛶</button>
+          <button data-act="frame" title="Recentrer">◎</button>
+          <button data-act="proj" title="Perspective / orthographique" id="bProj">Persp.</button>
+          <button data-act="wire" title="Solide / filaire" id="bWire">Solide</button>
+          <button data-act="axes" title="Afficher les axes" id="bAxes" class="on">Axes</button>
+          <button data-act="measure" title="Mesure de distance (2 clics)" id="bMeasure">Mesure</button>
+          <button data-act="layers" title="Calques" id="bLayers">Calques</button>
+          <button data-act="section" title="Coupes" id="bSection">Coupe</button>
+          <button data-act="compare" title="Comparer avant/après" id="bCompare">Avant/Après</button>
+        </div>
+      </div>
+      <div id="secPanel" hidden>
+        <label>Plan <select id="secAxis"><option value="off">Aucune</option><option value="x">Sagittale</option><option value="z">Frontale</option><option value="y">Transversale</option></select></label>
+        <input id="secPos" type="range" min="0" max="100" value="50" aria-label="Position de la coupe">
+        <button id="secFlip" title="Inverser le côté conservé">⇄</button>
+        <div class="legend" id="secLegend"></div>
+      </div>
+      <div id="layersPanel" hidden></div>
+      <div id="labels"></div>
+      <div id="status"></div>
+      <div id="hint"></div>
+      <div id="dock" hidden></div>
+    </section>
+  </main>
+  <div id="credit"><span>Contact :</span> <b translate="no">Jude Mambemba</b><i class="cd"> · </i><span class="cplace">Kinshasa, RDC</span><i class="cd cplace"> · </i><a href="#" data-about>À propos</a><i class="cd"> · </i><a href="#" data-donate>♥ Faire un don</a><i class="cd"> · </i><a translate="no" href="tel:+243814178011">+243 814 178 011</a><i class="cd"> · </i><a translate="no" href="mailto:judemambemba@gmail.com">judemambemba@gmail.com</a></div>
+  <footer id="bar">
+    <button id="btnPrev" class="nav">‹ Précédent</button>
+    <div id="stepInfo"></div>
+    <button id="btnNext" class="nav primary">Suivant ›</button>
+  </footer>
+</div>
+<div id="modal" class="modal" hidden><div class="card" id="modalCard" role="dialog" aria-modal="true"></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="fileScan" accept=".stl,.obj,.ply,.mtl,.png,.jpg,.jpeg,.bmp,.webp" multiple hidden>
+<input type="file" id="fileProj" accept=".json,application/json" hidden>
+<input type="file" id="filePhoto" accept="image/*" hidden>
+<script src="app.js"></script>
+</body>
+</html>
